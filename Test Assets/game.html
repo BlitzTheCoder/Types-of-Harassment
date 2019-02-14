@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet"> <!-- Grab an online reference to the Rubik google font -->
+<link rel="stylesheet" href="style.css"> <!-- Reference to the style.css file in the site folder. -->
+<head>
+    <meta charset="utf-8" />
+    <title>Workplace Harassment</title>
+	<h1>TWO TYPES OF HARASSMENT</h1>
+	<h2>Click and drag the employees to reveal more information.</h2>
+	<script>
+		var firstDrop = true; //Has the user done there first drag and drop yet?
+		let dragged;
+
+		function dragImage(dragEvent){ //When one of the characters is being dragged, run this code...
+			let target = dragEvent.target;
+			dragged = target;
+			dragEvent.dataTransfer.setData("Id", dragEvent.target.id);
+			event.dataTransfer.setData("text", target.id);
+			event.dataTransfer.dropEffect = "copy";
+		}
+		function dropImage(dropEvent){ //When the dragged character is dropped, run this code...
+			const target = dropEvent.target;
+			if(firstDrop){ //If this is the first drop, set the definition box to be visible
+				document.getElementById("infoBox").style = "opacity: 1";
+				firstDrop = false;
+			}
+
+			//Check if the character is dropped on either the quid-pro-quo or hostile-work-environment
+			//image and whether the character is the man or the woman, then swap to the appropriate picture
+			//and scenario definitions.
+			if(target.id == "quid"){ 
+				event.preventDefault;
+				if(dragged.id == "woman"){
+				target.style = "background-image:url(quid-withwoman.png)";
+				} else if (dragged.id == "man"){
+					target.style = "background-image:url(quid-withman.png)";
+				}
+				document.getElementById("type").innerHTML = "QUID PRO QUO";
+				document.getElementById("define").innerHTML = "means “something for something” or “this for that.” Example: An employee must submit to a supervisor’s sexually harassing conduct in order to get promoted by the supervisor.";
+			} else if(target.id == "hostile"){
+				event.preventDefault;
+				if(dragged.id == "woman"){
+				target.style = "background-image:url(hostile-withwoman.png)";
+				} else if (dragged.id == "man"){
+					target.style = "background-image:url(hostile-withman.png)";
+				}
+				document.getElementById("type").innerHTML = "HOSTILE WORK ENVIRONMENT";
+				document.getElementById("define").innerHTML = "is demonstrated by severe or pervasive conduct that creates a work environment a reasonable person would consider intimidating, hostile, or abusive.";					
+			}
+		}
+	</script>
+</head>
+<body>
+	
+	<!-- Set the Man and Woman characters that will be dragged about with event listeners-->
+	<img class="actors" id="man" src="drag-man.png"  ondragstart="dragImage(event)">
+	<img class="actors" id="woman" src="drag-woman.png"  ondragstart="dragImage(event)"> 
+
+	<!-- Set the initial empty quid-pro-quo image and give it event listeners-->
+	<div id="quid1" ondragover="event.preventDefault()" ondrop="dropImage(event)">  
+		<div class="swapper" id="quid" draggable="false"></div>
+	</div>
+
+	<!-- Set the initial empty hostile environment image and give it event listeners-->
+	<div id="host1" ondragover="event.preventDefault()" ondrop="dropImage(event)">  
+		<div class="swapper" id="hostile" draggable="false"></div>
+	</div>
+
+	<!-- An immovable background image-->
+	<img id="bg" draggable= "false" src="background.jpg"> 
+
+	<!-- The initial, empty definition text box-->
+	<div id="infoBox"> 
+		<p id="type"> </p>
+		<p id="define"> </p>
+	</div>
+</body>
+</html>

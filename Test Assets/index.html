@@ -1,0 +1,51 @@
+﻿ <!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<link rel="stylesheet" href="style.css">
+<img class="staticAsset" src="" id="bg"/>
+<img class="staticAsset" src="" id="staticHostile">
+<img class="staticAsset" src="" id="staticQuid">
+
+
+<head>
+    <meta charset="utf-8" />
+    <title>Types of Work Place Harassment</title>
+</head>
+
+<body>
+<canvas id='myCanvas' width = 800; height = 600;></canvas>
+
+<script>
+var canvas = document.getElementById("myCanvas");
+
+canvas.width= canvas.scrollWidth;
+canvas.height= canvas.scrollHeight;
+
+function draw(ctx, image){
+	if(!image.complete){
+		setTimeout(function(){
+			draw(ctx, image);
+		}, 50);
+		return;
+	}
+
+}
+
+var bg = document.getElementById("bg");
+bg.src = "background.jpg";
+var host = document.getElementById("staticHostile");
+host.src = "hostile-empty.png";
+var quid = document.getElementById("staticQuid");
+quid.src = "quid-empty.png";
+var ctx = canvas.getContext("2d");
+
+draw(ctx, quid);
+
+ctx.drawImage(bg, 0, 0);
+ctx.drawImage(host, 10, 10);
+</script>
+</body>
+
+
+
+</html>
